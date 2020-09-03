@@ -9,25 +9,25 @@ services:
     networks:
       - jaeger-example
   quarkus-hello:
-    restart: never
     image: guhilling/quarkus-hello:latest
     ports:
       - "8080:8080"
     environment:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
+      - QUARKUS_PROFILE=dockercompose
     networks:
       - jaeger-example
     depends_on:
       - jaeger
   quarkus-world:
-    restart: never
     image: guhilling/quarkus-world:latest
     ports:
       - "8081:8080"
     environment:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
+      - QUARKUS_PROFILE=dockercompose
     networks:
       - jaeger-example
     depends_on:
