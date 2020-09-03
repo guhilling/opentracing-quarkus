@@ -1,0 +1,48 @@
+version: "3.4"
+
+services:
+  jaeger:
+    image: registry.hub.docker.com/jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+      - "9411:9411"
+  quarkus-hello:
+    image: guhilling/quarkus-hello:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - QUARKUS_PROFILE=dockercompose
+    links:
+      - jaeger
+      - quarkus-world
+    depends_on:
+      - jaeger
+  quarkus-world:
+    image: registry.hub.docker.com/guhilling/quarkus-world:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - QUARKUS_PROFILE=dockercompose
+    links:
+      - jaeger
+      - postgresql
+    depends_on:
+      - jaeger
+      - postgresql
+  postgresql:
+    image: library/postgres:12.4-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: bind
+        source: ./quarkus-world/src/test/resources/db-init
+        target: /docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=gunnar
+      - POSTGRES_PASSWORD=secret
+
