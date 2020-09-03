@@ -40,3 +40,7 @@ jobs:
       run: cd quarkus-hello && docker build -f src/main/docker/Dockerfile.jvm -t ${HELLO_REPO} .
     - name: Publish Docker image (world)
       run: docker push ${HELLO_REPO}
+    - name: Build Docker image (world)
+      run: cd quarkus-world && docker build -f src/main/docker/Dockerfile.jvm -t ${WORLD_REPO} .
+    - name: Publish Docker image (world)
+      run: docker push ${WORLD_REPO}
