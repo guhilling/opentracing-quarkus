@@ -15,7 +15,7 @@ public class WorldResourceImplTest {
           .when().get("/world")
           .then()
              .statusCode(200)
-             .body(is("world"));
+             .body(is("WORLD"));
     }
 
 }
