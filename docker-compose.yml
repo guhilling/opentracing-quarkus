@@ -6,8 +6,6 @@ services:
     ports:
       - "6831:6831/udp"
       - "16686:16686"
-    networks:
-      - jaeger-example
   quarkus-hello:
     image: guhilling/quarkus-hello:latest
     ports:
@@ -16,8 +14,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - QUARKUS_PROFILE=dockercompose
-    networks:
-      - jaeger-example
+    links:
+      - jaeger
+      - quarkus-world
     depends_on:
       - jaeger
   quarkus-world:
@@ -28,8 +27,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - QUARKUS_PROFILE=dockercompose
-    networks:
-      - jaeger-example
+    links:
+      - jaeger
+      - postgresql
     depends_on:
       - jaeger
       - postgresql
@@ -45,5 +45,3 @@ services:
       - POSTGRES_USER=gunnar
       - POSTGRES_PASSWORD=secret
 
-networks:
-  jaeger-example:
