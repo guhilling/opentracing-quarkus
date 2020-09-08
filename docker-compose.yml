@@ -32,6 +32,18 @@ services:
       - jaeger-example
     depends_on:
       - jaeger
+      - postgresql
+  postgresql:
+    image: library/postgres:12.4-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: bind
+        source: ./db-init
+        target: /docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=gunnar
+      - POSTGRES_PASSWORD=secret
 
 networks:
   jaeger-example:
