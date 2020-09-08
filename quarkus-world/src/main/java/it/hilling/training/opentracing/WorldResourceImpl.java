@@ -21,6 +21,9 @@ public class WorldResourceImpl {
     @Inject
     private Tracer tracer;
 
+    @Inject
+    private DatabaseResource databaseResource;
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String world() {
@@ -29,7 +32,7 @@ public class WorldResourceImpl {
                 .start();
         LOG.info("called world");
         span.finish();
-        return "world";
+        return databaseResource.translate("world");
     }
 
 }
