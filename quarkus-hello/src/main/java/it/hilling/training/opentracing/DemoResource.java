@@ -25,11 +25,14 @@ public class DemoResource {
         Span span = tracer.buildSpan("demo span")
                 .withTag(Tags.COMPONENT.getKey(), "demo")
                 .start();
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<5; i++) {
             createChildSpan(i);
         }
-        for(int i=0; i<2; i++) {
+        for(int i=0; i<5; i++) {
             createReferencingSpan(i);
+        }
+        for(int i=0; i<5; i++) {
+            createIndependantSpan(i);
         }
         span.finish();
         return "spans created";
@@ -37,6 +40,7 @@ public class DemoResource {
 
     private void createChildSpan(int index) {
         Span span = tracer.buildSpan("child span " + index)
+                .withTag("this is", "a child span")
                 .start();
         sleep(10 * index);
         span.finish();
@@ -46,6 +50,16 @@ public class DemoResource {
         Span span = tracer.buildSpan("referencing span " + index)
                 .ignoreActiveSpan()
                 .addReference(References.FOLLOWS_FROM, tracer.activeSpan().context())
+                .withTag("this is", "follows from")
+                .start();
+        sleep(10 * index);
+        span.finish();
+    }
+
+    private void createIndependantSpan(int index) {
+        Span span = tracer.buildSpan("independant span " + index)
+                .ignoreActiveSpan()
+                .withTag("this is", "independant")
                 .start();
         sleep(10 * index);
         span.finish();
