@@ -39,7 +39,7 @@ services:
       - "5432:5432"
     volumes:
       - type: bind
-        source: ./db-init
+        source: ./quarkus-world/src/test/resources/db-init
         target: /docker-entrypoint-initdb.d
     environment:
       - POSTGRES_USER=gunnar
