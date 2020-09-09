@@ -1,5 +1,6 @@
 package it.hilling.training.opentracing;
 
+import io.opentracing.References;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
@@ -44,7 +45,7 @@ public class DemoResource {
     private void createReferencingSpan(int index) {
         Span span = tracer.buildSpan("referencing span " + index)
                 .ignoreActiveSpan()
-                .addReference("created by ", tracer.activeSpan().context())
+                .addReference(References.FOLLOWS_FROM, tracer.activeSpan().context())
                 .start();
         sleep(10 * index);
         span.finish();
