@@ -21,25 +21,42 @@ public class DemoResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String demo() {
-        Span span = tracer.buildSpan("demoSpan")
+        Span span = tracer.buildSpan("demo span")
                 .withTag(Tags.COMPONENT.getKey(), "demo")
                 .start();
         for(int i=0; i<10; i++) {
             createChildSpan(i);
+        }
+        for(int i=0; i<2; i++) {
+            createReferencingSpan(i);
         }
         span.finish();
         return "spans created";
     }
 
     private void createChildSpan(int index) {
-        Span span = tracer.buildSpan("childSpan " + index)
+        Span span = tracer.buildSpan("child span " + index)
                 .start();
+        sleep(10 * index);
+        span.finish();
+    }
+
+    private void createReferencingSpan(int index) {
+        Span span = tracer.buildSpan("referencing span " + index)
+                .ignoreActiveSpan()
+                .addReference("created by ", tracer.activeSpan().context())
+                .start();
+        sleep(10 * index);
+        span.finish();
+    }
+
+    private static void sleep(long millis) {
         try {
-            Thread.sleep(10 * index);
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        span.finish();
     }
+
 
 }
