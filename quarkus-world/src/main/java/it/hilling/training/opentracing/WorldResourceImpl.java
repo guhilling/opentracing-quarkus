@@ -19,10 +19,10 @@ public class WorldResourceImpl {
     private static final Logger LOG = LoggerFactory.getLogger(WorldResourceImpl.class);
 
     @Inject
-    private Tracer tracer;
+    Tracer tracer;
 
     @Inject
-    private DatabaseResource databaseResource;
+    DatabaseResource databaseResource;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

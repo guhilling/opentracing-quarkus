@@ -17,7 +17,7 @@ public class HelloResource {
     private static final Logger LOG = LoggerFactory.getLogger(HelloResource.class);
 
     @RestClient
-    private WorldResource worldResource;
+    WorldResource worldResource;
 
     @Path("/{name}")
     @GET
