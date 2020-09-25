@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+## Demo for using opentracing/jaeger with quarkus
 
-You can use the [editor on GitHub](https://github.com/guhilling/opentracing-quarkus/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The project files contain two [Quarkus](https://quarkus.io) projects. Each will provide a REST-style API.
+Informations about requests will be sent to the all-in-one jaeger server started by docker-compose.yml.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Instruction to get started
 
-### Markdown
+As I also host the docker images on Dockerhub you don't _have_ to build the code yourself. You can just start
+with `docker-compose up` and test the services.
+The containers will try to open the following ports on the host:
+- 8080 (quarkus-hello)
+- 8081 (quarkus-world)
+- 5432 (postgresql)
+- 16686 (jaeger-ui)
+For testing only 8081 and 16686 are actually required.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Provided services
 
-```markdown
-Syntax highlighted code block
+To trigger creation of traces in jaeger you can use the following url (via `curl`):
+- http://localhost:8080/hello/sam (return `<name>`)
+- http://localhost:8080/hello/world) (will trigger second service)
+- http://localhost:8081/world (direct call of second service)
+- http://localhost:8080/demo (demo of using the api directly)
 
-# Header 1
-## Header 2
-### Header 3
+## See results
 
-- Bulleted
-- List
+The resulting traces can be inspected via the jaeger ui running on [localhost:16686](http://localhost:16686)
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/guhilling/opentracing-quarkus/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
