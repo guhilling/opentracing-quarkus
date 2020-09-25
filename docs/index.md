@@ -12,6 +12,7 @@ The containers will try to open the following ports on the host:
 - 8081 (quarkus-world)
 - 5432 (postgresql)
 - 16686 (jaeger-ui)
+
 For testing only 8081 and 16686 are actually required.
 
 ## Provided services
