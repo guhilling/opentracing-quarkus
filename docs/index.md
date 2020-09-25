@@ -18,7 +18,7 @@ For testing only 8081 and 16686 are actually required.
 ## Provided services
 
 To trigger creation of traces in jaeger you can use the following url (via `curl`):
-- [http://localhost:8080/hello/<name>](http://localhost:8080/hello/sam) (return `<name>`)
+- [http://localhost:8080/hello/name](http://localhost:8080/hello/sam) (return `<name>`)
 - [http://localhost:8080/hello/world](http://localhost:8080/hello/world) (will trigger second service)
 - [http://localhost:8081/world](http://localhost:8081/world) (direct call of second service)
 - [http://localhost:8080/demo](http://localhost:8080/demo) (demo of using the api directly)
