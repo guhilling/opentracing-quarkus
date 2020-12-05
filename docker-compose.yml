@@ -14,7 +14,7 @@ services:
     environment:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
-      - QUARKUS_PROFILE=sampled
+      - QUARKUS_PROFILE=dockercompose
     links:
       - jaeger
       - quarkus-world
