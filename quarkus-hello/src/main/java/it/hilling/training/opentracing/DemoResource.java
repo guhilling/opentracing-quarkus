@@ -41,41 +41,38 @@ public class DemoResource {
     }
 
     private void createChildSpan(int index) {
-        Span span = tracer.buildSpan("child span " + index)
+        Span span = tracer.buildSpan("child span")
                 .withTag("mytag", "a child span")
+                .withTag("index", index)
                 .start();
         try (Scope scope = tracer.scopeManager().activate(span, true)) {
             sleep(10L * index);
         } catch (Exception ex) {
             Tags.ERROR.set(span, true);
             span.log(Map.of(Fields.EVENT, "error", Fields.ERROR_OBJECT, ex, Fields.MESSAGE, ex.getMessage()));
-        } finally {
-            span.finish();
         }
     }
 
     private void createReferencingSpan(int index) {
-        Span span = tracer.buildSpan("referencing span " + index)
+        Span span = tracer.buildSpan("referencing span")
                 .ignoreActiveSpan()
                 .addReference(References.FOLLOWS_FROM, tracer.activeSpan().context())
                 .withTag("mytag", "follows from")
+                .withTag("index", index)
                 .start();
         try (Scope scope = tracer.scopeManager().activate(span, true)) {
             sleep(10L * index);
-        } finally {
-            span.finish();
         }
     }
 
     private void createIndependantSpan(int index) {
-        Span span = tracer.buildSpan("independant span " + index)
+        Span span = tracer.buildSpan("independant span")
                 .ignoreActiveSpan()
                 .withTag("mytag", "independant")
+                .withTag("index", index)
                 .start();
         try (Scope scope = tracer.scopeManager().activate(span, true)) {
             sleep(10L * index);
-        } finally {
-            span.finish();
         }
     }
 
