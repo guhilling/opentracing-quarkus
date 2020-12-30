@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build - Maven and Publish DockeHub
+    name: Build - Maven and Publish Docker Hub
 
     runs-on: ubuntu-latest
 
