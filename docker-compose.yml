@@ -8,7 +8,7 @@ services:
       - "16686:16686"
       - "9411:9411"
   quarkus-hello:
-    image: guhilling/quarkus-hello:latest
+    image: quay.io/ghilling/quarkus-hello:latest
     ports:
       - "8080:8080"
     environment:
@@ -21,7 +21,7 @@ services:
     depends_on:
       - jaeger
   quarkus-world:
-    image: registry.hub.docker.com/guhilling/quarkus-world:latest
+    image: quay.io/ghilling/quarkus-world:latest
     ports:
       - "8081:8081"
     environment:

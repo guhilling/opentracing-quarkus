@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      HELLO_REPO: guhilling/quarkus-hello
-      WORLD_REPO: guhilling/quarkus-world
+      HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
+      WORLD_REPO: quay.io/ghilling/quarkus-world:latest
 
     steps:
     - uses: actions/checkout@v2
@@ -25,11 +25,12 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Login to Docker Hub
+    - name: Login to Quay.io
       uses: docker/login-action@v1
       with:
-        username: guhilling
-        password: ${{ secrets.DOCKERHUB }}
+        registry: quay.io
+        username: ${{ secrets.QUAY_ROBOT_USER }}
+        password: ${{ secrets.QUAY_ROBOT_TOKEN }}
     - name: Build Docker image (hello)
       run: cd quarkus-hello && docker build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
     - name: Publish Docker image (hello)
