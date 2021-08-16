@@ -26,7 +26,7 @@ public class DemoResource {
         Span span = tracer.buildSpan("demo span")
                 .withTag(Tags.COMPONENT.getKey(), "demo")
                 .start();
-        tracer.scopeManager().activate(span, true);
+        tracer.scopeManager().activate(span);
         for (int i = 0; i < 5; i++) {
             createChildSpan(i);
         }
@@ -45,7 +45,7 @@ public class DemoResource {
                 .withTag("mytag", "a child span")
                 .withTag("index", index)
                 .start();
-        try (Scope scope = tracer.scopeManager().activate(span, true)) {
+        try (Scope scope = tracer.scopeManager().activate(span)) {
             sleep(10L * index);
         } catch (Exception ex) {
             Tags.ERROR.set(span, true);
@@ -60,7 +60,7 @@ public class DemoResource {
                 .withTag("mytag", "follows from")
                 .withTag("index", index)
                 .start();
-        try (Scope scope = tracer.scopeManager().activate(span, true)) {
+        try (Scope scope = tracer.scopeManager().activate(span)) {
             sleep(10L * index);
         }
     }
@@ -71,7 +71,7 @@ public class DemoResource {
                 .withTag("mytag", "independant")
                 .withTag("index", index)
                 .start();
-        try (Scope scope = tracer.scopeManager().activate(span, true)) {
+        try (Scope scope = tracer.scopeManager().activate(span)) {
             sleep(10L * index);
         }
     }
