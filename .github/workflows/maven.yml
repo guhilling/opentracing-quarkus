@@ -42,6 +42,7 @@ jobs:
           path: /tmp/hello.tar
 
   publish:
+    if: github.event_name != 'pull_request'
     name: Publish Docker Hub
     needs: build
     runs-on: ubuntu-latest
