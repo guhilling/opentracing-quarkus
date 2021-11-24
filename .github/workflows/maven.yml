@@ -27,7 +27,7 @@ jobs:
           cd quarkus-hello
           docker build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
           docker save ${HELLO_REPO} -o /tmp/hello.tar
-          cd quarkus-world
+          cd ../quarkus-world
           docker build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
           docker save ${WORLD_REPO} -o /tmp/world.tar
       - name: Upload artifact world
