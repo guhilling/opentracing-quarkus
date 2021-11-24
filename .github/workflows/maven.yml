@@ -30,9 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags:
-            - ${{ env.HELLO_REPO }}
-            - ${{ env.WORLD_REPO }}
+          tags: ${{ env.HELLO_REPO }}
           outputs: type=docker,dest=/tmp/images.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v2
