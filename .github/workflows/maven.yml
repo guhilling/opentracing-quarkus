@@ -22,24 +22,14 @@ jobs:
           java-version: 1.11
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      - name: Switch BuildX
-        run: docker buildx create --use
-      - name: Build Docker image (hello)
-        run: cd quarkus-hello && docker build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
-      - name: Build Docker image (world)
-        run: cd quarkus-world && docker build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
-      - name: Build and export
-        uses: docker/build-push-action@v2
-        with:
-          context: quarkus-world
-          tags: ${{ env.WORLD_REPO }}
-          outputs: type=docker,dest=/tmp/world.tar
-      - name: Build and export
-        uses: docker/build-push-action@v2
-        with:
-          context: quarkus-hello
-          tags: ${{ env.HELLO_REPO }}
-          outputs: type=docker,dest=/tmp/hello.tar
+      - name: Build Docker images
+        run: |
+          cd quarkus-hello
+          docker build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
+          docker export ${HELLO_REPO} -o /tmp/hello.tar
+          cd quarkus-world
+          docker build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
+          docker export ${WORLD_REPO} -o /tmp/world.tar
       - name: Upload artifact world
         uses: actions/upload-artifact@v2
         with:
@@ -61,11 +51,17 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: images
+          name: world
           path: /tmp
-      - name: Load image
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: hello
+          path: /tmp
+      - name: Load images
         run: |
-          docker load --input /tmp/images.tar
+          docker load --input /tmp/world.tar
+          docker load --input /tmp/hello.tar
       - name: Login to Quay.io
         uses: docker/login-action@v1
         with:
