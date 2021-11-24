@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build - Maven and Publish Docker Hub
+    name: Build - Maven and Docker
     runs-on: ubuntu-latest
     env:
       HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
@@ -30,7 +30,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: ${HELLO_REPO}
+          tags:
+            - ${env.HELLO_REPO}
+            - ${env.WORLD_REPO}
           outputs: type=docker,dest=/tmp/images.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -39,7 +41,7 @@ jobs:
           path: /tmp/images.tar
 
   publish:
-    name: Build - Maven and Publish Docker Hub
+    name: Publish Docker Hub
     runs-on: ubuntu-latest
     env:
       HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
