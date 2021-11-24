@@ -23,9 +23,9 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Build Docker image (hello)
-        run: cd quarkus-hello && docker build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
+        run: cd quarkus-hello && docker buildx build -f src/main/docker/Dockerfile -t ${HELLO_REPO} .
       - name: Build Docker image (world)
-        run: cd quarkus-world && docker build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
+        run: cd quarkus-world && docker buildx build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
       - name: Build and export
         uses: docker/build-push-action@v2
         with:
