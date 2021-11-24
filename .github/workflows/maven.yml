@@ -43,6 +43,7 @@ jobs:
 
   publish:
     name: Publish Docker Hub
+    needs: build
     runs-on: ubuntu-latest
     env:
       HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
