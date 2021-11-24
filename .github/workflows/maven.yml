@@ -31,8 +31,8 @@ jobs:
         with:
           context: .
           tags:
-            - ${env.HELLO_REPO}
-            - ${env.WORLD_REPO}
+            - ${{ env.HELLO_REPO }}
+            - ${{ env.WORLD_REPO }}
           outputs: type=docker,dest=/tmp/images.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v2
