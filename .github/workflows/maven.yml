@@ -31,14 +31,25 @@ jobs:
       - name: Build and export
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: quarkus-world
+          tags: ${{ env.WORLD_REPO }}
+          outputs: type=docker,dest=/tmp/world.tar
+      - name: Build and export
+        uses: docker/build-push-action@v2
+        with:
+          context: quarkus-hello
           tags: ${{ env.HELLO_REPO }}
-          outputs: type=docker,dest=/tmp/images.tar
-      - name: Upload artifact
+          outputs: type=docker,dest=/tmp/hello.tar
+      - name: Upload artifact world
         uses: actions/upload-artifact@v2
         with:
-          name: images
-          path: /tmp/images.tar
+          name: world
+          path: /tmp/world.tar
+      - name: Upload artifact hello
+        uses: actions/upload-artifact@v2
+        with:
+          name: hello
+          path: /tmp/hello.tar
 
   publish:
     name: Publish Docker Hub
