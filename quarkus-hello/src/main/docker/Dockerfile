@@ -31,6 +31,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 # Install java and the run-java script
 # Also set up permissions for user `1001`
 RUN microdnf -y install ca-certificates ${JAVA_PACKAGE} \
+    && microdnf -y update zlib \
     && microdnf clean all \
     && mkdir /deployments \
     && chown 1001 /deployments \
