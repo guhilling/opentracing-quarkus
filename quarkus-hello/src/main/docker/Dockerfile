@@ -21,7 +21,7 @@
 # docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/opentracing-quarkus-jvm
 #
 ###
-FROM registry.access.redhat.com/ubi9/ubi-minimal:9.0.0
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
 
 ARG JAVA_PACKAGE=java-17-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.8
