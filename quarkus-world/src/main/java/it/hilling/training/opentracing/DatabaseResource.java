@@ -3,8 +3,8 @@ package it.hilling.training.opentracing;
 import io.agroal.api.AgroalDataSource;
 import org.eclipse.microprofile.opentracing.Traced;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
