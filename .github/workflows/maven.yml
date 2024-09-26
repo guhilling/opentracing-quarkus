@@ -51,12 +51,12 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: world
+          name: world.tar
           path: /tmp
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: hello
+          name: hello.tar
           path: /tmp
       - name: Load images
         run: |
