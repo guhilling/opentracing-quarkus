@@ -31,12 +31,12 @@ jobs:
       - name: Upload artifact world
         uses: actions/upload-artifact@v4
         with:
-          name: world
+          name: world.tar
           path: /tmp/world.tar
       - name: Upload artifact hello
         uses: actions/upload-artifact@v4
         with:
-          name: hello
+          name: hello.tar
           path: /tmp/hello.tar
 
   publish:
