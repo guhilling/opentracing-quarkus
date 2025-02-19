@@ -13,13 +13,12 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.opentracing</groupId>
-            <artifactId>quarkus-smallrye-opentracing</artifactId>
-            <version>1.0.0</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-opentelemetry</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-jdbc</artifactId>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-extension-trace-propagators</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

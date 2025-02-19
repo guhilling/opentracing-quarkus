@@ -1,12 +1,11 @@
 package it.hilling.training.opentracing;
 
-import io.opentracing.Span;
-import io.opentracing.Tracer;
-import io.opentracing.tag.Tags;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -27,11 +26,11 @@ public class WorldResourceImpl {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String world() {
-        Span span = tracer.buildSpan("worldimpl")
-                .withTag(Tags.COMPONENT.getKey(), "custom")
-                .start();
+        Span span = tracer.spanBuilder("worldimpl")
+                          .setAttribute("custom", "customValue")
+                          .startSpan();
         LOG.info("called world");
-        span.finish();
+        span.end();
         return databaseResource.translate("world");
     }
 
