@@ -1,8 +1,8 @@
 package it.hilling.training.opentracing;
 
 import io.agroal.api.AgroalDataSource;
-import org.eclipse.microprofile.opentracing.Traced;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ public class DatabaseResource {
     @Inject
     AgroalDataSource dataSource;
 
-    @Traced(operationName = "db_access")
+    @WithSpan("db_access")
     public String translate(String arg) {
         try(Connection connection=dataSource.getConnection();
                 Statement statement = connection.createStatement();
