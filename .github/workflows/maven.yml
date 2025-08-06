@@ -49,12 +49,12 @@ jobs:
       WORLD_REPO: quay.io/ghilling/quarkus-world:latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: world.tar
           path: /tmp
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: hello.tar
           path: /tmp
