@@ -35,7 +35,7 @@ services:
       - jaeger
       - postgresql
   postgresql:
-    image: library/postgres:17.6-alpine
+    image: library/postgres:18.0-alpine
     ports:
       - "5432:5432"
     volumes:
