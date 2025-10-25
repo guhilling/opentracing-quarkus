@@ -29,12 +29,12 @@ jobs:
           docker build -f src/main/docker/Dockerfile -t ${WORLD_REPO} .
           docker save ${WORLD_REPO} -o /tmp/world.tar
       - name: Upload artifact world
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: world.tar
           path: /tmp/world.tar
       - name: Upload artifact hello
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: hello.tar
           path: /tmp/hello.tar
@@ -49,12 +49,12 @@ jobs:
       WORLD_REPO: quay.io/ghilling/quarkus-world:latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: world.tar
           path: /tmp
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: hello.tar
           path: /tmp
