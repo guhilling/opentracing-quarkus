@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build - Maven and Docker
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
       WORLD_REPO: quay.io/ghilling/quarkus-world:latest
@@ -43,7 +43,7 @@ jobs:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     name: Publish Docker Hub
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       HELLO_REPO: quay.io/ghilling/quarkus-hello:latest
       WORLD_REPO: quay.io/ghilling/quarkus-world:latest
